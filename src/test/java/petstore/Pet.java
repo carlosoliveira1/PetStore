@@ -37,9 +37,27 @@ public class Pet {
                 .body("name", is("doggie"))
                 .body("status", is("available"))
                 //.body("category.name", is("dog"))//Deveria estar passando "dog", mas está gerando erro
-                .body("tags.name", contains("string"))
+                //.body("tags.name", contains("dog"))
         ;
 
+    }
+
+    @Test
+    public  void consultarPet(){
+        String petId = "9222968140497182000";
+
+        given()
+                .contentType("application/json")
+                .log().all()
+        .when()
+                .get(uri + "/" + petId)
+
+        .then().log().all()
+                .statusCode(200)
+                .body("name", is("doggie"))
+               // .body("category.name", is("dog"))
+                .body("status", is("available"))
+        ;
     }
 
 }
