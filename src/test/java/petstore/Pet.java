@@ -8,6 +8,9 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 
 import static io.restassured.RestAssured.given;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.contains;
+import static org.hamcrest.Matchers.containsString;
 
 public class Pet {
 
@@ -31,6 +34,10 @@ public class Pet {
         .then()
                 .log().all()
                 .statusCode(200)
+                .body("name", is("doggie"))
+                .body("status", is("available"))
+                //.body("category.name", is("dog"))//Deveria estar passando "dog", mas está gerando erro
+                .body("tags.name", contains("string"))
         ;
 
     }
